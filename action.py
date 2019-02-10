@@ -6,6 +6,7 @@ from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
 from hermes_python.ontology import *
 import io
+import os
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
@@ -34,9 +35,10 @@ def action_wrapper(hermes, intentMessage, conf):
 
     result_sentence = ""
 
-    result_sentence = "Awesome! You want to be a  : {}".format(str(voiceText))  # The response that will be said out loud by the TTS engine.
+    result_sentence = "You said a  : {}".format(str(voiceText))  # The response that will be said out loud by the TTS engine.
 
-
+    os.system("mpg321 welcome.mp3")
+    
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)
 
